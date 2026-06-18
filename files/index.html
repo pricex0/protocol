@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE PROTOCOL — Food, Sleep, Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --card:#131313;
+    --card-border:#232323;
+    --gold:#dba84e;
+    --gold-dim:#7a6230;
+    --white:#f4f3ef;
+    --gray:#8c8c8c;
+    --gray-dim:#5a5a5a;
+    --divider:#262626;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,10,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--divider);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 32px;
+  }
+  nav .brand{
+    font-family:'Archivo Black',sans-serif;
+    font-size:14px;
+    letter-spacing:0.04em;
+  }
+  nav .brand span{color:var(--gold);}
+  nav .links{display:flex;gap:28px;}
+  nav .links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gray);
+    padding-bottom:4px;
+    border-bottom:1px solid transparent;
+    transition:color 0.2s, border-color 0.2s;
+  }
+  nav .links a:hover{color:var(--gold);border-color:var(--gold);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:90px 32px 70px;
+    max-width:980px;
+    margin:0 auto;
+    border-bottom:1px solid var(--divider);
+  }
+  .hero .eyebrow{
+    color:var(--gold);
+    font-size:11px;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(40px,7vw,76px);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{color:var(--gold);}
+  .hero p{
+    margin-top:24px;
+    max-width:520px;
+    color:var(--gray);
+    font-size:16px;
+    line-height:1.6;
+  }
+  .hero .stamp{
+    margin-top:36px;
+    display:flex;
+    gap:36px;
+    flex-wrap:wrap;
+  }
+  .hero .stamp div{font-family:'IBM Plex Mono',monospace;font-size:11px;}
+  .hero .stamp .k{color:var(--gray-dim);letter-spacing:0.1em;text-transform:uppercase;}
+  .hero .stamp .v{color:var(--white);font-size:13px;margin-top:4px;}
+
+  /* ---------- SECTION ---------- */
+  section.pillar{
+    max-width:980px;
+    margin:0 auto;
+    padding:80px 32px 40px;
+    border-bottom:1px solid var(--divider);
+  }
+  section.pillar:last-of-type{border-bottom:none;}
+  .pillar-head .eyebrow{
+    color:var(--gold);
+    font-size:11px;
+    margin-bottom:18px;
+  }
+  .pillar-head h2{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(34px,5vw,52px);
+    letter-spacing:-0.01em;
+  }
+  .pillar-head p{
+    margin-top:14px;
+    color:var(--gray);
+    font-size:15px;
+    max-width:560px;
+    line-height:1.6;
+  }
+
+  .grid{
+    margin-top:48px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--divider);
+    border:1px solid var(--divider);
+  }
+  @media (max-width:720px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  .habit{
+    background:var(--card);
+    padding:28px 30px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .habit::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:var(--gold-dim);
+    transition:background 0.25s;
+  }
+  .habit:hover::before{background:var(--gold);}
+  .habit h3{
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.01em;
+    margin-bottom:12px;
+  }
+  .habit .why{
+    font-size:14px;
+    line-height:1.65;
+    color:var(--gray);
+  }
+  .habit .why .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--gold-dim);
+    margin-right:6px;
+  }
+
+  .program-image{
+    margin-top:48px;
+    border:1px solid var(--card-border);
+    background:var(--card);
+  }
+  .program-image img{
+    width:100%;
+    display:block;
+  }
+  .program-image .cap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 20px;
+    border-top:1px solid var(--card-border);
+  }
+  .program-image .cap span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gray-dim);
+  }
+  .program-image .cap span.live{color:var(--gold);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:50px 32px 60px;
+    color:var(--gray-dim);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">THE <span>PROTOCOL</span></div>
+  <div class="links">
+    <a href="#food">Food</a>
+    <a href="#sleep">Sleep</a>
+    <a href="#exercise">Exercise</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow mono">Daily health system</div>
+  <h1>EVERY LEVER.<br>EVERY <span class="accent">REASON.</span></h1>
+  <p>The full list of what gets pulled, every day, to stay healthy and keep compounding — food, sleep, and training — with the actual science behind each piece.</p>
+  <div class="stamp">
+    <div><div class="k">Pillars</div><div class="v">FOOD · SLEEP · EXERCISE</div></div>
+    <div><div class="k">Frequency</div><div class="v">DAILY</div></div>
+    <div><div class="k">Goal</div><div class="v">COMPOUND, DON'T SPIKE</div></div>
+  </div>
+</section>
+
+<section class="pillar" id="food">
+  <div class="pillar-head">
+    <div class="eyebrow mono">Pillar — Nutrition</div>
+    <h2>FOOD</h2>
+    <p>What goes in either builds the system or taxes it. The rule of thumb: if it doesn't look like something that grew or was raised, be suspicious of it.</p>
+  </div>
+
+  <div class="grid">
+    <div class="habit">
+      <h3>Whole, Minimally Processed Foods</h3>
+      <p class="why"><span class="tag">WHY:</span>Whole foods keep their fiber, micronutrients, and natural satiety signals intact — all of which get stripped out during industrial processing. Diets built around whole foods consistently show better metabolic markers and easier weight regulation than processed diets matched for the same calories.</p>
+    </div>
+    <div class="habit">
+      <h3>Avoid Ultra-Processed Foods</h3>
+      <p class="why"><span class="tag">WHY:</span>Ultra-processed foods are engineered for a specific fat/sugar/salt ratio that overrides normal fullness cues, so people eat more calories than intended even when total calories are matched. Long-term studies link them to higher rates of metabolic syndrome and cardiovascular disease.</p>
+    </div>
+    <div class="habit">
+      <h3>No Added Refined Sugar</h3>
+      <p class="why"><span class="tag">WHY:</span>Refined sugar spikes blood glucose and insulin fast, and repeated spikes drive insulin resistance, fat storage, and energy crashes over time. Cutting it out stabilizes energy throughout the day and lowers the inflammatory load on tissue.</p>
+    </div>
+    <div class="habit">
+      <h3>No Seed Oils & Preservatives</h3>
+      <p class="why"><span class="tag">WHY:</span>Most seed oils are heavy in omega-6 fat, which can push the omega-6:omega-3 ratio in a more inflammatory direction, and they oxidize easily under heat into harmful byproducts. Many synthetic preservatives are also being studied for effects on gut bacteria, though that evidence is less settled than the case against sugar.</p>
+    </div>
+    <div class="habit">
+      <h3>No Artificial / "Natural" Flavors</h3>
+      <p class="why"><span class="tag">WHY:</span>Flavor additives — "artificial" or "natural" — are usually there to mask the absence of real, nutrient-dense ingredients. The flavoring chemicals themselves are mostly harmless; avoiding them works as a practical filter that steers you toward whole, recognizable ingredients instead.</p>
+    </div>
+    <div class="habit">
+      <h3>Protein: ~0.7–1g per lb of Bodyweight</h3>
+      <p class="why"><span class="tag">WHY:</span>Higher protein intake drives muscle protein synthesis — the rate-limiting step for building and keeping muscle, especially while lifting regularly. Most research shows gains plateau somewhere in the 0.7–1g/lb range, so 1g/lb is a simple, safe target without needing to hit it exactly every day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pillar" id="sleep">
+  <div class="pillar-head">
+    <div class="eyebrow mono">Pillar — Recovery</div>
+    <h2>SLEEP</h2>
+    <p>Training breaks the body down; sleep is where it actually rebuilds. Consistency matters more than any single trick on this list.</p>
+  </div>
+
+  <div class="grid">
+    <div class="habit">
+      <h3>No Food 4 Hours Before Bed</h3>
+      <p class="why"><span class="tag">WHY:</span>Digestion raises core body temperature and metabolic activity, working against the temperature drop the body needs to fall into deep sleep. Eating close to bedtime is also linked to worse overnight glucose control and more fragmented sleep.</p>
+    </div>
+    <div class="habit">
+      <h3>15 Min of Morning Sunlight</h3>
+      <p class="why"><span class="tag">WHY:</span>Bright light shortly after waking is the strongest signal for anchoring the circadian clock, telling the brain "day has started" and setting a timer for melatonin release 14–16 hours later. It's one of the most evidence-backed habits for improving both sleep onset and next-day alertness.</p>
+    </div>
+    <div class="habit">
+      <h3>No Phone for 1 Hour After Waking</h3>
+      <p class="why"><span class="tag">WHY:</span>Cortisol naturally peaks in the first hour after waking to drive alertness; pulling out a phone — notifications, comparison, news — can spike it further and throw that rhythm off. Delaying screens gives the nervous system a calmer, more deliberate start to the day.</p>
+    </div>
+    <div class="habit">
+      <h3>Warm Shower Before Bed</h3>
+      <p class="why"><span class="tag">WHY:</span>A warm shower raises skin temperature, which paradoxically speeds up the core temperature drop afterward as heat escapes through dilated blood vessels — mimicking the natural dip that precedes sleep. Studies show this can shave several minutes off the time it takes to fall asleep.</p>
+    </div>
+    <div class="habit">
+      <h3>Cold Shower in the Morning</h3>
+      <p class="why"><span class="tag">WHY:</span>Cold exposure triggers a release of norepinephrine and dopamine, boosting alertness and mood without caffeine, and reinforces the same "day has started" signal as morning sunlight. Consistent use is also linked to metabolic and mitochondrial adaptations.</p>
+    </div>
+    <div class="habit">
+      <h3>Consistent Schedule (10PM–7:30AM)</h3>
+      <p class="why"><span class="tag">WHY:</span>Sleeping and waking at the same time daily keeps the circadian rhythm stable, which improves sleep quality more than total hours alone — an inconsistent schedule is tied to worse metabolic and cardiovascular outcomes even with enough total sleep. The ~9 hour window also covers the full set of REM and deep sleep cycles needed for physical recovery and memory consolidation.</p>
+    </div>
+    <div class="habit">
+      <h3>Phone Off / No Screens 1 Hr Before Bed</h3>
+      <p class="why"><span class="tag">WHY:</span>Screens emit blue-heavy light that suppresses melatonin production, delaying the body's natural signal to feel sleepy, and the mental stimulation of scrolling keeps the brain in an alert state. Cutting screens an hour out lets melatonin rise undisturbed and gives the nervous system time to downshift.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pillar" id="exercise">
+  <div class="pillar-head">
+    <div class="eyebrow mono">Pillar — Training</div>
+    <h2>EXERCISE</h2>
+    <p>Strength, speed, and aerobic base, each trained on its own track so they reinforce each other instead of competing for recovery.</p>
+  </div>
+
+  <div class="program-image">
+    <img src="blueprint-program.jpg" alt="The Blueprint powerbuilding program — Push/Pull/Shoulders split, intensity zones, deload protocol, and sprint schedule">
+    <div class="cap">
+      <span>The Blueprint · Powerbuilding & Lifestyle Protocol</span>
+      <span class="live">Mon / Wed / Fri</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="habit">
+      <h3>Strength Training — The Blueprint Split</h3>
+      <p class="why"><span class="tag">WHY:</span>Progressive overload — gradually increasing weight or volume — is the core driver of muscle and strength gains, forcing the body to keep adapting instead of plateauing. Structuring lifts into intensity zones and scheduling deload weeks lets the program push hard most weeks while still giving the nervous system and connective tissue time to recover, which is what prevents stalled progress and overuse injury.</p>
+    </div>
+    <div class="habit">
+      <h3>Sprint Training (2x / Week)</h3>
+      <p class="why"><span class="tag">WHY:</span>Short, all-out sprints are one of the most time-efficient ways to raise VO2 max, which is one of the strongest predictors of long-term cardiovascular health and longevity in large studies. They also recruit fast-twitch fibers that slower cardio doesn't train, building power and top-end speed.</p>
+    </div>
+    <div class="habit">
+      <h3>Zone 2 Cardio (2–3x / Week)</h3>
+      <p class="why"><span class="tag">WHY:</span>Training at a conversational, sustainable pace builds mitochondrial density and improves the body's ability to clear lactate and burn fat for fuel, building an aerobic base that speeds up recovery between harder sessions like lifting and sprints. It's also one of the lowest-fatigue ways to add cardio volume without cutting into strength gains.</p>
+    </div>
+    <div class="habit">
+      <h3>15 Min Stretching Before Bed</h3>
+      <p class="why"><span class="tag">WHY:</span>Stretching after a day of heavy training helps maintain joint range of motion and works against the muscle stiffness that builds from repeated mechanical tension, lowering next-day soreness. Done right before bed, it also shifts the nervous system into a more parasympathetic, "rest" state — helping the transition into sleep.</p>
+    </div>
+  </div>
+</section>
+
+<footer>THE PROTOCOL · FOOD. SLEEP. TRAIN. REPEAT.</footer>
+
+</body>
+</html>
